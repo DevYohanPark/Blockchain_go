@@ -1,4 +1,4 @@
-package blockchain_go
+package blockchain
 
 import (
 	"bytes"
@@ -26,4 +26,8 @@ func NewBlock(data string, prevBlockHash []byte) *Block {
 	block := &Block{time.Now().Unix(), prevBlockHash, []byte{}, []byte(data)}
 	block.SetHash()
 	return block
+}
+
+func NewGenesisBlock() *Block {
+	return NewBlock("Genesis Block", []byte{})
 }
