@@ -1,4 +1,4 @@
-package blockchain
+package main
 
 type Blockchain struct {
 	Blocks []*Block
@@ -12,5 +12,9 @@ func (bc *Blockchain) AddBlock(data string) {
 
 // NewBlockchain creates a new Blockchain with genesis Block
 func NewBlockchain() *Blockchain {
+	return &Blockchain{[]*Block{NewGenesisBlock()}}
+}
+
+func NewBlockchain2() *Blockchain {
 	return &Blockchain{[]*Block{NewGenesisBlock()}}
 }
