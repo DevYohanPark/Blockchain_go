@@ -8,7 +8,14 @@ import (
 	"strconv"
 )
 
+// CLI responsible for processing command line arguments
 type CLI struct{}
+
+func (cli *CLI) createBlockchain(address string) {
+	bc := CreateBlockchain(address)
+	bc.db.Close()
+	fmt.Println("Done!")
+}
 
 func (cli *CLI) getBalance(address string) {
 	bc := NewBlockchain(address)
@@ -39,10 +46,6 @@ func (cli *CLI) validateArgs() {
 	}
 }
 
-func (cli *CLI) addBlock(data string) {
-	fmt.Println("addBlock is deprecated.")
-}
-
 func (cli *CLI) printChain() {
 	// TODO: Fix this
 	bc := NewBlockchain("")
@@ -65,12 +68,6 @@ func (cli *CLI) printChain() {
 	}
 }
 
-func (cli *CLI) createBlockchain(address string) {
-	bc := CreateBlockchain(address)
-	bc.db.Close()
-	fmt.Println("Done!")
-}
-
 func (cli *CLI) send(from, to string, amount int) {
 	bc := NewBlockchain(from)
 	defer bc.db.Close()
@@ -80,6 +77,7 @@ func (cli *CLI) send(from, to string, amount int) {
 	fmt.Println("Success!")
 }
 
+// Run parses command line arguments and processes commands
 func (cli *CLI) Run() {
 	cli.validateArgs()
 
