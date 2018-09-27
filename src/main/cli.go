@@ -8,9 +8,7 @@ import (
 	"strconv"
 )
 
-type CLI struct {
-	bc *Blockchain
-}
+type CLI struct{}
 
 func (cli *CLI) printUsage() {
 	fmt.Println("Usage:")
@@ -26,18 +24,20 @@ func (cli *CLI) validateArgs() {
 }
 
 func (cli *CLI) addBlock(data string) {
-	cli.bc.AddBlock(data)
-	fmt.Println("Success!")
+	fmt.Println("addBlock is deprecated.")
 }
 
 func (cli *CLI) printChain() {
-	bci := cli.bc.Iterator()
+	// TODO: Fix this
+	bc := NewBlockchain("")
+	defer bc.db.Close()
+
+	bci := bc.Iterator()
 
 	for {
 		block := bci.Next()
 
 		fmt.Printf("Prev. hash: %x\n", block.PrevBlockHash)
-		fmt.Printf("Data: %s\n", block.Data)
 		fmt.Printf("Hash: %x\n", block.Hash)
 		pow := NewProofOfWork(block)
 		fmt.Printf("PoW: %s\n", strconv.FormatBool(pow.Validate()))
